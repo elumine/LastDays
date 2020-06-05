@@ -1,0 +1,14 @@
+<td class="td analytics">{{ session.id }}</td>
+<td>
+  <table class="table analytics">
+    <tr class="tr analytics">
+      <!-- <th>Build</th>
+      <th>Device</th>
+      <th>Session</th> -->
+      <th class="th analytics">type</th>
+      <th class="th analytics">created</th>
+      <th class="th analytics">data</th>
+    </tr>
+    <analytics-event class="tr analytics" [event]="event" *ngFor="let event of session.events"></analytics-event>
+  </table>
+</td>

@@ -1,0 +1,10 @@
+<td class="td analytics">{{ device.id }}</td>
+<td>
+  <table class="table analytics">
+    <tr class="tr analytics">
+      <th class="th analytics">session</th>
+      <th class="th analytics">events</th>
+    </tr>
+    <analytics-session class="tr analytics" [session]="session" *ngFor="let session of device.sessions"></analytics-session>
+  </table>
+</td>

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "iocloud-77b52": {
+      "hosting": {
+        "last-days-web-app": [
+          "iocloud-77b52"
+        ]
+      }
+    }
+  }
+}
