@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from '../services/analytics/analytics.service';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { AnalyticsEvent, AnalyticsEventInterface } from '../services/analytics/AnalyticsEvent';
-import { firestore } from 'firebase/app';
-import Timestamp = firestore.Timestamp;
 
 
 @Component({
@@ -36,7 +34,7 @@ export class AnalyticsBackendComponent implements OnInit {
         const payload = JSON.parse(message);
         console.log('payload:', payload);
         const eventInterface: AnalyticsEventInterface = {
-          createdAt: Timestamp.fromDate(new Date()),
+          createdAt: new Date().toISOString(),
           build: payload.build || 'None',
           device: payload.device || 'deviceID',
           session: payload.session || 'sessionID',

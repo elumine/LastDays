@@ -1,5 +1,4 @@
 import { AnalyticsEventInterface, AnalyticsEventConstructor, AnalyticsEvent, AnalyticsEventDateRoundingType } from './AnalyticsEvent';
-import { AnalyticsEventSessionStart } from './events/AnalyticsEventSessionStart';
 import { AnalyticsEventTypes } from './AnalyticsEventTypes';
 import { AnalyticsStatistic } from './AnalyticsStatistic';
 import { AnalyticsBuild } from './AnalyticsBuild';
@@ -107,11 +106,11 @@ export class AnalyticsCommon {
     }
   }
 
-  static SplitEventsByDate(events: AnalyticsEvent[], rounding: AnalyticsEventDateRoundingType) {
+  static SplitEventsByDate(events: AnalyticsSortable[], rounding: AnalyticsEventDateRoundingType) {
     const sorted = this.SortEventsByDate(events);
-    const datesToEventsPairs = new Map<string, { date: Date; events: AnalyticsEvent[] }>();
+    const datesToEventsPairs = new Map<string, { date: Date; events: AnalyticsSortable[] }>();
     sorted.forEach(event => {
-      const roundDate = event.calculateRoundCreateAt(rounding);
+      const roundDate = this.RoundDate(event.getSortDate(), rounding);
       const timestamp = roundDate.toDateString();
       if (!datesToEventsPairs.has(timestamp)) {
         datesToEventsPairs.set(timestamp, {
@@ -124,10 +123,21 @@ export class AnalyticsCommon {
     return datesToEventsPairs;
   }
 
-  static SortEventsByDate(events: AnalyticsEvent[]): AnalyticsEvent[] {
-    return events.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+  static RoundDate(date: Date, rounding: AnalyticsEventDateRoundingType): Date {
+    const newDate = new Date(date);
+    switch (rounding) {
+      case AnalyticsEventDateRoundingType.Day: newDate.setHours(0, 0, 0, 0); break;
+      case AnalyticsEventDateRoundingType.Hour: newDate.setHours(newDate.getHours(), 0, 0, 0); break;
+    }
+    return newDate;
+  }
+
+  static SortEventsByDate(events: AnalyticsSortable[]): AnalyticsSortable[] {
+    return events.sort((a, b) => a.getSortDate().getTime() - b.getSortDate().getTime());
   }
 }
 
+export interface AnalyticsSortable {
+  getSortDate(): Date;
+}
 
-AnalyticsCommon.TypeToEventMap.set(AnalyticsEventTypes.SessionStart, AnalyticsEventSessionStart);

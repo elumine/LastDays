@@ -12,10 +12,6 @@ export class AdminComponent implements OnInit {
   constructor(
     public readonly analytics: AnalyticsService) {}
 
-  get statistic() {
-    return this.analytics.statistic;
-  }
-
   async ngOnInit() {
     console.info(this);
   }

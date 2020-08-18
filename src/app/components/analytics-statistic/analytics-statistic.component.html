@@ -1,0 +1,10 @@
+<h2>Statistic</h2>
+<div *ngIf="statistic">
+  <h3>Builds</h3>
+  <span *ngFor="let build of statistic.builds">
+    <a routerLink="build/{{build.url}}">{{ build.id }}</a> &nbsp;
+  </span>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

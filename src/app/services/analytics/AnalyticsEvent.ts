@@ -1,11 +1,10 @@
-import moment from 'moment';
-import { firestore } from 'firebase/app';
-import Timestamp = firestore.Timestamp;
 import { AnalyticsEventTypes } from './AnalyticsEventTypes';
 
-
+type Timestamp = {
+  seconds: number;
+}
 export interface AnalyticsEventInterface {
-  createdAt: firestore.Timestamp;
+  createdAt: Timestamp | string;
   build: string;
   session: string;
   device: string;
@@ -26,7 +25,7 @@ export class AnalyticsEvent<DataType = any> {
 
   constructor(initializer: AnalyticsEventInterface, data: DataType) {
     console.info(`AnalyticsEvent()`, initializer, this);
-    this.createdAt = initializer.createdAt.toDate();
+    this.createdAt = new Date((initializer.createdAt as Timestamp).seconds * 1000);
     this.createdAtUTC = new Date();
     const timezoneMs = this.createdAt.getTimezoneOffset() * 60000;
     this.createdAtUTC.setTime(this.createdAt.getTime() - timezoneMs);
@@ -35,16 +34,6 @@ export class AnalyticsEvent<DataType = any> {
     this.device = initializer.device;
     this.type = initializer.type;
     this.data = data;
-  }
-
-  calculateRoundCreateAt(rounding: AnalyticsEventDateRoundingType): Date {
-    const newDate = new Date(this.createdAtUTC);
-
-    switch (rounding) {
-      case AnalyticsEventDateRoundingType.Day: newDate.setHours(0, 0, 0, 0); break;
-      case AnalyticsEventDateRoundingType.Hour: newDate.setHours(newDate.getHours(), 0, 0, 0); break;
-    }
-    return newDate;
   }
 }
 

@@ -1,0 +1,12 @@
+<div *ngIf="analytics.currentBuild">
+  <span *ngFor="let session of analytics.currentBuild.sessions">
+    <a routerLink="session/{{session.url}}">{{ session.id }}</a> &nbsp;
+  </span>
+  <div>
+    <div *ngIf="renderingInProgress">rendering...</div>
+    <div id="chart1"></div>
+  </div>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

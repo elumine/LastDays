@@ -7,25 +7,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminComponent } from './admin/admin.component';
 import { AnalyticsBackendComponent } from './analytics-backend/analytics-backend.component';
-import { HomeComponent } from './home/home.component';
 import { environment } from '../environments/environment';
-import { AnalyticsStatisticComponent } from './admin/analytics-statistic/analytics-statistic.component';
-import { AnalyticsBuildComponent } from './admin/analytics-statistic/analytics-build/analytics-build.component';
-import { AnalyticsDeviceComponent } from './admin/analytics-statistic/analytics-build/analytics-device/analytics-device.component';
-import { AnalyticsSessionComponent } from './admin/analytics-statistic/analytics-build/analytics-device/analytics-session/analytics-session.component';
-import { AnalyticsEventComponent } from './admin/analytics-statistic/analytics-build/analytics-device/analytics-session/analytics-event/analytics-event.component';
+import { AnalyticsBuildComponent } from './components/build/analytics-build.component';
+import { AnalyticsStatisticComponent } from './components/analytics-statistic/analytics-statistic.component';
+import { AnalyticsSessionComponent } from './components/analytics-session/analytics-session.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
     AnalyticsBackendComponent,
-    HomeComponent,
     AnalyticsStatisticComponent,
     AnalyticsBuildComponent,
-    AnalyticsSessionComponent,
-    AnalyticsEventComponent,
-    AnalyticsDeviceComponent
+    AnalyticsSessionComponent
   ],
   imports: [
     BrowserModule,
