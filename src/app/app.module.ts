@@ -8,9 +8,11 @@ import { AppComponent } from './app.component';
 import { AdminComponent } from './admin/admin.component';
 import { AnalyticsBackendComponent } from './analytics-backend/analytics-backend.component';
 import { environment } from '../environments/environment';
-import { AnalyticsBuildComponent } from './components/build/analytics-build.component';
+import { AnalyticsBuildComponent } from './components/analytics-build/analytics-build.component';
 import { AnalyticsStatisticComponent } from './components/analytics-statistic/analytics-statistic.component';
 import { AnalyticsSessionComponent } from './components/analytics-session/analytics-session.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { AnalyticsSessionComponent } from './components/analytics-session/analyt
     AnalyticsBackendComponent,
     AnalyticsStatisticComponent,
     AnalyticsBuildComponent,
-    AnalyticsSessionComponent
+    AnalyticsSessionComponent,
+    TimelineComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

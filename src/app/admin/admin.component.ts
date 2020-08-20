@@ -14,5 +14,14 @@ export class AdminComponent implements OnInit {
 
   async ngOnInit() {
     console.info(this);
+    this.analytics.load();
+  }
+
+  async fetch() {
+    await this.analytics.fetch();
+  }
+
+  loadTestData() {
+    this.analytics.loadTestData();
   }
 }

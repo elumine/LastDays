@@ -1,0 +1,51 @@
+<table class="table years" cellpadding="0" cellspacing="0">
+  <tr class="row year" *ngFor="let year of calendar.years">
+    <td class="cell year name">
+      <div class="content">{{ year.year }}</div>
+    </td>
+    <td class="cell year months">
+      <table class="table months" cellpadding="0" cellspacing="0">
+        <tr class="row month" *ngFor="let month of year.monthsList">
+          <td class="cell month name">
+            <div class="content">{{ month.month }}</div>
+          </td>
+          <td class="cell month days">
+            <table class="table days" cellpadding="0" cellspacing="0">
+              <tr class="row days">
+                <td class="cell day"
+                  *ngFor="let day of month.daysList"
+                  [class.full]="day.events.length > 0"
+                  [class.selected]="day.isSelected"
+                  (click)="onDayClick(day)">
+                  <div class="content">
+                    <div class="name">{{ day.day }}</div>
+                    <div class="events-count">{{ day.events.length }}</div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<div class="selected-day" *ngIf="currentSelectedDay">
+  <div class="events">
+    <a class="event"
+      *ngFor="let event of currentSelectedDay.events"
+      [class.selected]="isCalendarEventSelected(event)"
+      (click)="onSessionClick(event)"
+      [ngStyle]="{
+        'width': (event.duration / (1000 * 60/5)) + 'px',
+        'background': event.color
+      }">
+      <div class="label-text">
+        {{ event.calendarLabelText }}
+      </div>
+      <div class="side-text">
+        {{ event.calendarSideText }}
+      </div>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="controls">
+  <div class="block rows">
+    <input type="range" min="1" max="10" step="1" ([ngModel])="rowsCount" (change)="onSliderRowsCountChange($event)" />
+    <div class="text">{{ rowsCount }} rows</div>
+  </div>
+  <div class="block tpp">
+    <input type="range" min="10" max="10000" step="1" ([ngModel])="timePerPixel" (change)="onSliderTPPChange($event)" />
+    <div class="text">{{timePerPixel}} ms/px</div>
+  </div>
+</div>
+<div class="timeline-screen-wrapper">
+  <div class="front-bar left"></div>
+  <div class="front-bar right"></div>
+  <div class="front-bar top"></div>
+  <div class="front-bar bot"></div>
+  <div class="events-scroll-wrapper" *ngIf="timeline.hasEvents">
+    <div class="scroll-content"
+      [ngStyle]="{
+        'width': timeline.mesh.size.x
+      }">
+      <div class="events-padding-wrapper">
+        <ng-container *ngFor="let row of timeline.rows">
+          <div class="row"
+            [class.extra]="row.isExtra"
+            [ngStyle]="{
+              'top': row.mesh.position.y
+            }">
+          </div>
+        </ng-container>
+        <ng-container *ngFor="let event of timeline.events">
+          <div class="event"
+            [ngStyle]="{
+              'left': event.mesh.position.x1,
+              'top': event.mesh.position.y,
+              'width': event.mesh.size.x
+            }">
+            <div class="event-box"
+              [ngStyle]="{
+                'background-color': event.mesh.color
+              }">
+              <span class="label-text">{{ event.labelText }}</span>
+              <div class="event-time-line start">
+                <span class="time-label date">{{ event.startTimeLabelTextDate }}</span>
+                <span class="time-label time">{{ event.startTimeLabelTextTime }}</span>
+              </div>
+              <div class="event-time-line end">
+                <span class="time-label date">{{ event.endTimeLabelTextDate }}</span>
+                <span class="time-label time">{{ event.endTimeLabelTextTime }}</span>
+              </div>
+            </div>
+            <span class="side-text">{{ event.sideText }}</span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!timeline.hasEvents">
+  No events.
+</div>

@@ -1,0 +1,38 @@
+:host {
+  .build-list {
+    width: 100%;
+    margin: 10px 0;
+    background: #111;
+
+    .build-box {
+      width: 450px;
+      height: 100px;
+      padding: 10px;
+      border-radius: 5px;
+      background: #333;
+      display: inline-block;
+      vertical-align: top;
+      text-decoration: none;
+      font-size: 14px;
+      margin: 10px 10px 0 0;
+      &:hover, &.selected {
+        background: #eee;
+        .property {
+          .value {
+            color: #000;
+          }
+        }
+      }
+
+      .property {
+        display: block;
+        .key {
+          color: #777;
+        }
+        .value {
+          color: #aaa;
+        }
+      }
+    }
+  }
+}

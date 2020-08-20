@@ -1,16 +1,8 @@
 body {
-  background-color: #fff;
-  color: #333;
+  color: #eee;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 14px;
-}
-
-.table.analytics {
-  width: 100%;
-  .tr.analytics {
-    .th.analytics,
-    .td.analytics {
-      border: 1px solid #ccc;
-    }
-  }
+  background: #111;
+  margin: 0;
+  padding: 0 25px 0 0;
 }

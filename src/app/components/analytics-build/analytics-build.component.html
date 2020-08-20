@@ -1,0 +1,12 @@
+<div *ngIf="analytics.currentBuild">
+  <div class="calendar-wrapper">
+    <calendar [events]="analytics.currentBuild.sessions"
+      [selectedDate]="selectedDate"
+      (onDaySelection)="onCalendarDaySelection($event)"
+      (onEventSelection)="onCalendarEventSelection($event)">
+    </calendar>
+  </div>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { AnalyticsCommon } from './AnalyticsCommon';
 import { AnalyticsStatistic } from './AnalyticsStatistic';
 import { AnalyticsBuild } from './AnalyticsBuild';
 import { AnalyticsSession } from './AnalyticsSession';
+import { AnalyticsTestEvents } from './TestData';
 
 
 @Injectable({ providedIn: 'root' })
@@ -17,23 +18,53 @@ export class AnalyticsService {
   statistic: AnalyticsStatistic;
   currentBuildId: string;
   currentBuild: AnalyticsBuild;
+  currentBuildDate: string;
   currentSessionId: string;
   currentSession: AnalyticsSession;
 
-
   constructor(public readonly store: AngularFirestore) {
-    console.group('AnalyticsService()');
     this.collection = this.store.collection<AnalyticsEventInterface>('LastDaysAnalytics');
+  }
+
+  async fetch() {
     this.collection.valueChanges()
-      .subscribe((eventsData: AnalyticsEventInterface[]) => {
-        console.group('AnalyticsService.Events');
-        this.events = eventsData.map(data => AnalyticsCommon.CreateEvent(data)).filter(v => !!v);
-        console.groupEnd();
-        console.group('AnalyticsService.Statistic');
-        this.statistic = AnalyticsCommon.CreateStatistic(this.events);
-        console.groupEnd();
-        console.groupEnd();
+      .subscribe((events: AnalyticsEventInterface[]) => {
+        this.create(events);
+        this.save();
       });
+  }
+
+  loadTestData() {
+    this.create(AnalyticsTestEvents);
+    this.save();
+  }
+
+  create(events: AnalyticsEventInterface[]) {
+    console.groupCollapsed('AnalyticsService.create()', events.length);
+    const eventsList = events.map(data => AnalyticsCommon.CreateEvent(data)).filter(v => !!v);
+    this.events = AnalyticsCommon.SortSortable(eventsList);
+    console.groupEnd();
+    console.groupCollapsed('AnalyticsService.Statistic');
+    this.statistic = AnalyticsCommon.CreateStatistic(this.events);
+    console.groupEnd();
+  }
+
+  load() {
+    try {
+      const string = localStorage.getItem('analytics/data');
+      const data = JSON.parse(string);
+      const events = data.events as AnalyticsEventInterface[];
+      this.create(events);
+    } catch (error) {
+      console.warn(`AnalyticsService.load() error.`, error);
+    }
+  }
+
+  save() {
+    const events: AnalyticsEventInterface[] = this.events.map(e => e.serialize());
+    const data = { events: events };
+    const string = JSON.stringify(data);
+    localStorage.setItem('analytics/data', string);
   }
 
   async log(e: AnalyticsEventInterface) {

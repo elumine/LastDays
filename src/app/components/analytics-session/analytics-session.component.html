@@ -1,2 +1,3 @@
-<div *ngIf="renderingInProgress">rendering...</div>
-<div id="chart2"></div>
+  <div class="timeline-wrapper">
+    <timeline [events]="events" [rowsCount]="3" [timePerPixel]="1000"></timeline>
+  </div>

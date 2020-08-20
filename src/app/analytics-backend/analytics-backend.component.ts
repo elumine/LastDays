@@ -34,7 +34,7 @@ export class AnalyticsBackendComponent implements OnInit {
         const payload = JSON.parse(message);
         console.log('payload:', payload);
         const eventInterface: AnalyticsEventInterface = {
-          createdAt: new Date().toISOString(),
+          createdAt: `${new Date().toISOString()}`,
           build: payload.build || 'None',
           device: payload.device || 'deviceID',
           session: payload.session || 'sessionID',

@@ -1,9 +1,30 @@
-<h2>Statistic</h2>
 <div *ngIf="statistic">
-  <h3>Builds</h3>
-  <span *ngFor="let build of statistic.builds">
-    <a routerLink="build/{{build.url}}">{{ build.id }}</a> &nbsp;
-  </span>
+  <div class="build-list">
+    <ng-container *ngFor="let build of statistic.builds">
+      <a class="build-box" [class.selected]="isBuildSelected(build)" routerLink="build/{{build.url}}/0-0-0">
+        <div class="property version-name">
+          <span class="key">Name: </span>&nbsp;
+          <span class="value">{{ build.versionName }}</span>
+        </div>
+        <div class="property version-number">
+          <span class="key">Version: </span>&nbsp;
+          <span class="value">{{ build.versionNumber }}</span>
+        </div>
+        <div class="property build-type">
+          <span class="key">Build: </span>&nbsp;
+          <span class="value">{{ build.buildType }}</span>
+        </div>
+        <div class="property sessions-count">
+          <span class="key">Sessions: </span>&nbsp;
+          <span class="value">{{ build.sessionsCount }}</span>
+        </div>
+        <div class="property time-range">
+          <span class="key">Time Range: </span>&nbsp;
+          <span class="value">{{ build.timeRangeText }}</span>
+        </div>
+      </a>
+    </ng-container>
+  </div>
   <div>
     <router-outlet></router-outlet>
   </div>

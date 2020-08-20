@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { AnalyticsBackendComponent } from './analytics-backend/analytics-backend.component';
-import { AnalyticsBuildComponent } from './components/build/analytics-build.component';
+import { AnalyticsBuildComponent } from './components/analytics-build/analytics-build.component';
 import { AnalyticsStatisticComponent } from './components/analytics-statistic/analytics-statistic.component';
 import { AnalyticsSessionComponent } from './components/analytics-session/analytics-session.component';
 
@@ -19,7 +19,7 @@ const routes: Routes = [
         component: AnalyticsStatisticComponent,
         children: [
           {
-            path: 'build/:buildId',
+            path: 'build/:buildId/:date',
             component: AnalyticsBuildComponent,
             children: [
               {

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AnalyticsStatistic } from 'src/app/services/analytics/AnalyticsStatistic';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
+import { AnalyticsBuild } from 'src/app/services/analytics/AnalyticsBuild';
 
 @Component({
   selector: 'analytics-statistic',
@@ -18,5 +19,9 @@ export class AnalyticsStatisticComponent implements OnInit {
 
   ngOnInit() {
     //
+  }
+
+  isBuildSelected(build: AnalyticsBuild) {
+    return build === this.analytics.currentBuild;
   }
 }
